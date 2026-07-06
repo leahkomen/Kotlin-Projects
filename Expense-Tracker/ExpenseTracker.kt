@@ -65,14 +65,27 @@ fun updateExpense(list: MutableList<Expense>,id: Int)
         println("No expenses found")
     }
 }
-fun deleteExpense(list: MutableList<Expense>,id: Int)
+fun deleteExpense(list: MutableList<Expense>, id: Int)
 {
-    val expenses=list.find{ it.id == id }
-    if(expenses != null)
+    val expenses = list.find { it.id == id }
+    if (expenses != null)
     {
-        list.remove(expenses)
+        println("Are you sure you want to delete this expense? Yes or No")
+        val choice = readln().uppercase()
 
-        println("You deleted the  item successfully from your expense tracker")
+        if (choice == "YES")
+        {
+            list.remove(expenses)
+            println("You deleted the item successfully from your expense tracker")
+        }
+        else
+        {
+            println("Okay, the expense was not deleted.")
+        }
+    }
+    else
+    {
+        println("No expense found")
     }
 }
 fun categorizeExpense(list: MutableList<Expense>)
@@ -150,7 +163,9 @@ fun loadExpenses(list: MutableList<Expense>)
 }
 fun getCategoryFromUser(): String
 {
-    println("==EXPENSE CATEGORY==")
+    while(true)
+    {
+        println("==EXPENSE CATEGORY==")
     println("1.FOOD")
     println("2.TRANSPORT")
     println("3.SHOPPING")
@@ -168,6 +183,7 @@ fun getCategoryFromUser(): String
     if(choice !in listOf("1", "2", "3", "4", "5", "6", "7", "8","9","10"))
     {
         println("Please enter a valid input.")
+        continue
     }
     return when(choice){
         "1"->"FOOD"
@@ -181,6 +197,8 @@ fun getCategoryFromUser(): String
         "9"->"EMERGENCY"
         else -> "OTHER"
     }
+    }
+    
 }
 
 fun main()
@@ -222,7 +240,7 @@ fun main()
                 println("Enter date:")
                 val date= readln()
 
-                val id = expenses.size+1
+                val id = (expenses.maxOfOrNull { it.id } ?: 0) + 1 
                 addExpenses(expenses,id,category,description,amount,date)
 
                 println("Expenses added successfully")
