@@ -80,10 +80,22 @@ fun updateItem(list: MutableList<InventoryItem>,id:Int)
             item.name = readln().uppercase()
 
             println("Enter new quantity:")
-            item.quantity = readln().toInt()
+            val quantity = readln().toIntOrNull()
+            if (quantity == null)
+            {
+                println("Invalid quantity. Update cancelled.")
+                return
+            }
+            item.quantity = quantity
 
             println("Enter new price:")
-            item.price = readln().toDouble()
+            val price = readln().toDoubleOrNull()
+            if (price == null)
+            {
+                println("Invalid price. Update cancelled.")
+                return
+            }
+            item.price = price
 
             when(item) {
                 is Book -> {
@@ -120,8 +132,14 @@ fun deleteItem(list: MutableList<InventoryItem>,id:Int)
     val item=list.find { it.id == id }
     if(item != null)
     {
-       list.remove(item)
-       println("The item was deleted.")
+        println("Are you sure you want to delete this item? Yes or No")
+        val choice = readln().uppercase()
+        if (choice == "YES") {
+            list.remove(item)
+            println("Item deleted successfully.")
+        } else {
+            println("Deletion cancelled.")
+        }
     }
     else
     {
@@ -142,7 +160,13 @@ fun searchItem(list: MutableList<InventoryItem>)
             "1" -> {
 
                 println("Enter item ID:")
-                val id = readln().toInt()
+                val id = readln().toIntOrNull()
+
+                if (id == null)
+                {
+                    println("Invalid ID.")
+                    return
+                }
 
                 val item = list.find { it.id == id }
 
@@ -303,10 +327,20 @@ fun main()
                 val name=readln().uppercase()
 
                 println("Please enter the quantity of Books:")
-                val quantity=readln().toInt()
+                val quantity=readln().toIntOrNull()
+                if (quantity == null)
+                {
+                    println("Invalid quantity. Item not added.")
+                    continue
+                }
 
                 println("Please enter the price of Book:")
-                val price=readln().toDouble()
+                val price=readln().toDoubleOrNull()
+                if (price == null)
+                {
+                    println("Invalid price. Item not added.")
+                    continue
+                }
 
                 println("Please enter the author of the Book:")
                 val author=readln().uppercase()
@@ -324,10 +358,20 @@ fun main()
                 val name=readln().uppercase()
 
                 println("Please enter the quantity of Electronics:")
-                val quantity=readln().toInt()
+                val quantity=readln().toIntOrNull()
+                if (quantity == null)
+                {
+                    println("Invalid quantity. Item not added.")
+                    continue
+                }
 
                 println("Please enter the price of the Electronics:")
-                val price=readln().toDouble()
+                val price=readln().toDoubleOrNull()
+                if (price == null)
+                {
+                    println("Invalid price. Item not added.")
+                    continue
+                }
 
                 println("Please enter the brand of the Electronics:")
                 val brand=readln().uppercase()
@@ -341,14 +385,25 @@ fun main()
             }
             "3"->{
                 val id=generateId(inventory)
+
                 println("Please enter the name of the Clothes:")
                 val name=readln().uppercase()
 
                 println("Please enter the quantity of the Clothes:")
-                val quantity=readln().toInt()
+                val quantity=readln().toIntOrNull()
+                if (quantity == null)
+                {
+                    println("Invalid quantity. Item not added.")
+                    continue
+                }
 
                 println("Please enter the price of the Clothes:")
-                val price=readln().toDouble()
+                val price=readln().toDoubleOrNull()
+                if (price == null)
+                {
+                    println("Invalid price. Item not added.")
+                    continue
+                }
 
                 println("Please enter the size of the Clothes:")
                 val size=readln()
@@ -365,13 +420,24 @@ fun main()
             }
             "5"->{
                println("Please enter the id of the item:")
-                val id=readln().toInt()
+                val id=readln().toIntOrNull()
+                if (id == null)
+                {
+                    println("Invalid id.")
+                    continue
+                }
+
                 updateItem(inventory,id)
                 saveItem(inventory)
             }
             "6"->{
                 println("Please enter the id of the item:")
-                val id=readln().toInt()
+                val id=readln().toIntOrNull()
+                if (id == null)
+                {
+                    println("Invalid id.")
+                    continue
+                }
 
                 deleteItem(inventory,id)
                 saveItem(inventory)
@@ -395,6 +461,3 @@ fun main()
         }
     }
 }
-
-
-
