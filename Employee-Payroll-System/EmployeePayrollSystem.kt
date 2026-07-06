@@ -271,7 +271,7 @@ fun loadEmployee(list: MutableList<Employee>)
          }
          when(choice){
              "1"->{
-                 val id=employees.size+1
+                 val id = (employees.maxOfOrNull { it.id } ?: 0) + 1
 
                  println("Please enter your full name:")
                  val fullName=readln().uppercase()
