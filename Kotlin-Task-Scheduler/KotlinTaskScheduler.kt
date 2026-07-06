@@ -113,6 +113,10 @@ fun deleteTask(list: MutableList<TaskScheduler>, id: Int)
         {
             println("Deletion aborted.")         }
     }
+    else
+    {
+        println("There is no such task.")
+    }
 }
 fun executeTask(list: MutableList<TaskScheduler>,scope: CoroutineScope,id: Int)
 {
@@ -244,21 +248,36 @@ fun main()=runBlocking{
             }
             "4"->{
                 println("Please enter the id of the task you want to update:")
-                val id=readln().toInt()
+                val id=readln().toIntOrNull()
+                if (id == null)
+                {
+                    println("Invalid id.")
+                    continue
+                }
 
                 updateTask(scheduler, id)
                 saveTasks(scheduler)
             }
             "5"->{
                 println("Please enter the id of the task you want to delete:")
-                val id=readln().toInt()
+                val id=readln().toIntOrNull()
+                if (id == null)
+                {
+                    println("Invalid id.")
+                    continue
+                }
 
                 deleteTask(scheduler, id)
                 saveTasks(scheduler)
             }
             "6"->{
                 println("Please enter the id of the task you want to execute:")
-                val id=readln().toInt()
+                val id=readln().toIntOrNull()
+                if (id == null)
+                {
+                    println("Invalid id.")
+                    continue
+                }
 
                 executeTask(scheduler,this,id)
                 saveTasks(scheduler)
