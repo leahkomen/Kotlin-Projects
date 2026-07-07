@@ -9,7 +9,7 @@ fun wrapInHtml(content: String): String
         $content
         </body>
         </html>
-    """
+    """.trimIndent()
 }
 fun parseHeadings(text: String): String
 {
