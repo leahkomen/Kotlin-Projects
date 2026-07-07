@@ -197,7 +197,13 @@ fun main()
         {
             "1"->{
                 println("Enter the id:")
-                val id= readln().toIntOrNull() ?: 0
+                val id = readln().toIntOrNull()
+
+                if (id == null)
+                {
+                    println("Invalid ID. Please enter a numeric ID.")
+                    continue
+                }
 
                 val existing=books.find { it.id == id}
                 if(existing!=null)
@@ -223,26 +229,44 @@ fun main()
             }
             "2"->{
                 println("Enter the id of the book you want to display:")
-                val id= readln().toIntOrNull() ?: 0
+                val id = readln().toIntOrNull()
 
-                displayBook(books,id)
-
+                if (id == null)
+                {
+                    println("Invalid ID.")
+                }
+                else
+                {
+                    displayBook(books,id)
+                }
             }
             "3"->{
                 displayBooks(books)
             }
             "4"->{
                 println("Enter the id of the book you want to update:")
-                val id= readln().toIntOrNull() ?: 0
-                updateBook(books,id)
+                val id = readln().toIntOrNull()
 
-                println("The book has been updated.")
-
-                saveBooks(books)
+                if (id == null)
+                {
+                    println("Invalid ID.")
+                }
+                else
+                {
+                    updateBook(books,id)
+                    println("The book has been updated.")
+                    saveBooks(books)
+                }
             }
             "5"->{
                 println("Enter the id of the book you want to delete:")
-                val id= readln().toIntOrNull() ?: 0
+                val id = readln().toIntOrNull()
+
+                if (id == null)
+                {
+                    println("Invalid ID.")
+                    continue
+                }
 
                 println("Are you sure you want to delete this book?yes or no")
                 val choice=readln().uppercase()
