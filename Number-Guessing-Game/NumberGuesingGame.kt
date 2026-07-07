@@ -7,10 +7,11 @@ fun playGame(min:Int, max:Int,maxAttempts:Int)
 {
     var attempts=0
 
-    val secretNumber= Random.nextInt(min, max)
+    val secretNumber= Random.nextInt(min, max+1)
     println("Hint:The number is between $min and $max")
 
-    while(true) {
+    while(true) 
+    {
         println("Enter your number:")
         val num=readln().toIntOrNull()
 
@@ -20,8 +21,7 @@ fun playGame(min:Int, max:Int,maxAttempts:Int)
             continue
         }
         attempts++
-
-
+        
         if(num==secretNumber)
         {
             println("You got it in $attempts ${if (attempts == 1) "guess" else "guesses"}! Congrats!!")
